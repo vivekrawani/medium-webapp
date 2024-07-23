@@ -1,5 +1,4 @@
-"use client";
-import React from "react";
+import  { useState } from "react";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { cn } from "@/lib/utils";
@@ -7,28 +6,48 @@ import {
   IconBrandGithub,
   IconBrandGoogle,
 } from "@tabler/icons-react";
+
+import api from "../../../api/config"
+import {SignInInput} from "@vivek_kr/medium-common"
+
 const appName = "Medium";
 export function SigninForm() {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const [userInfo, setUserInfo] = useState<SignInInput>({
+    email : "",
+    password : ""
+  });
+  const handleSubmit =  async(e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Form submitted");
+    const jwt =  (await api.post("/signin", userInfo)).data;
+    localStorage.setItem("medium-jwt-token", jwt)
+    
   };
   return (
     <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
       <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">
         Welcome to {appName}
       </h2>
-     
+     {
+      // JSON.stringify(userInfo)
+     }
 
       <form className="my-8" onSubmit={handleSubmit}>
     
         <LabelInputContainer className="mb-4">
           <Label htmlFor="email">Email Address</Label>
-          <Input id="email" placeholder="projectmayhem@fc.com" type="email" />
+          <Input id="email" placeholder="jhondoe@gmail.com" type="email" value={userInfo.email}
+          onChange={(e)=> {
+            setUserInfo((info)=>({...info, email : e.target.value}))
+          }}
+          />
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="password">Password</Label>
-          <Input id="password" placeholder="••••••••" type="password" />
+          <Input id="password" placeholder="••••••••" type="password" 
+           onChange={(e)=> {
+            setUserInfo((info)=>({...info, password : e.target.value}))
+          }}
+          />
         </LabelInputContainer>
        
         <button

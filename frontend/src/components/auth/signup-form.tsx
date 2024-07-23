@@ -1,5 +1,4 @@
-"use client";
-import React from "react";
+import  { useState } from "react";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { cn } from "@/lib/utils";
@@ -7,11 +6,22 @@ import {
   IconBrandGithub,
   IconBrandGoogle,
 } from "@tabler/icons-react";
+//@ts-ignore
+import api from "../../../api/config"
+import {SignUpInput} from "@vivek_kr/medium-common"
 const appName = "Medium";
+
 export function SignupForm() {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const [userInfo, setUserInfo] = useState<SignUpInput>({
+    name : "",
+    email : "",
+    password : ""
+  });
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Form submitted");
+    setUserInfo({...userInfo, email : "dfadf"});
+    const jwt =  (await api.post("/signin", userInfo)).data;
+    localStorage.setItem("medium-jwt-token", jwt)
   };
   return (
     <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
