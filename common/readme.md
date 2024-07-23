@@ -1,0 +1,1 @@
+This is a common module which was created so that it can be used in frontend and backend of blog site.
