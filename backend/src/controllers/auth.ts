@@ -2,6 +2,8 @@ import { Context } from "hono"
 import { PrismaClient } from '@prisma/client/edge'
 import { withAccelerate } from '@prisma/extension-accelerate'
 import { sign } from "hono/jwt"
+// @ts-ignore
+import {signUpInput, signInInput} from '@vivek_kr/medium-common'
 export const signUp = async(c : Context)=>{
 
     const {DATABASE_URL, JWT_SECRET} = c.env;
@@ -11,6 +13,12 @@ export const signUp = async(c : Context)=>{
 
 //   const body =  await c.req.parseBody();
   const body =  await c.req.json();
+  const ret = signUpInput.safeParse(body);
+  if (!ret.success) {
+   console.log(ret.error)
+    c.status(411)
+    return c.text("invalid credentials")
+  }
     try {
       const user =  await prisma.user.create({
         data : {
@@ -35,11 +43,17 @@ export const signUp = async(c : Context)=>{
 }
 
 export const signIn = async (c : Context)=>{
+    const body =  await c.req.json();
+    const {success} = signInInput.safeParse(body)
+    if (!success) {
+        c.status(411)
+        return c.text("invalid credentials")
+    }
     const {DATABASE_URL, JWT_SECRET} = c.env;
     const prisma = new PrismaClient({
       datasourceUrl: DATABASE_URL,
   }).$extends(withAccelerate())
-  const body =  await c.req.json();
+  
     try {
       const user =  await prisma.user.findUnique({
         where: {
