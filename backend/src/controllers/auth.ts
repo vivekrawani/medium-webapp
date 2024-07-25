@@ -13,6 +13,7 @@ export const signUp = async(c : Context)=>{
 
 //   const body =  await c.req.parseBody();
   const body =  await c.req.json();
+  console.log(body)
   const ret = signUpInput.safeParse(body);
   if (!ret.success) {
    console.log(ret.error)

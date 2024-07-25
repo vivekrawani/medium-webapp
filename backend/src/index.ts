@@ -1,7 +1,7 @@
 import { Context, Hono } from 'hono'
 import { verify } from 'hono/jwt';
-import { createPost, getBlogs, signIn, signUp, updatePost, getBlog} from './controllers';
-import { env } from 'hono/adapter';
+import { createBlog, getBlogs, signIn, signUp, updateBlog, getBlog} from './controllers';
+import { cors } from 'hono/cors';
 
 interface  Enviroment  {
   Bindings : {
@@ -15,10 +15,12 @@ interface  Enviroment  {
 
 const api_v1 = new Hono<Enviroment>().basePath('/api/v1');
 
-api_v1.get('/app', (c)=>{
+api_v1.get('/', (c)=>{
  
-  return c.text("hi there")
+  return c.text("hi there server is running")
 })
+
+api_v1.use(cors())
 
 api_v1.use('/blog/*', async(c, next)=>{
   const {JWT_SECRET} = c.env;
@@ -51,9 +53,10 @@ api_v1.use('/blog/*', async(c, next)=>{
 api_v1.post('/signup', signUp)
 api_v1.post('/signin', signIn)
 api_v1.get('/blog', getBlogs)
-api_v1.post('/blog', createPost)
-api_v1.put('/blog', updatePost)
+api_v1.post('/blog', createBlog)
+api_v1.put('/blog', updateBlog)
 api_v1.get('/blog/:id', getBlog)
+
 
 
 export default api_v1;
