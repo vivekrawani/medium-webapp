@@ -75,11 +75,12 @@ export const getBlogs = async (c: Context) => {
         published: true,
         premiumBlog : true,
         publishDate : true,
+        updateAt : true,
 
-        
         author: {
           select: {
             name: true,
+            avatarURL : true
           },
         },
       },
