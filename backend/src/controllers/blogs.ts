@@ -15,7 +15,7 @@ export const createBlog = async (c: Context) => {
   const prisma = new PrismaClient({
     datasourceUrl: DATABASE_URL,
   }).$extends(withAccelerate());
-
+  console.log(body);
   try {
     const post = await prisma.blog.create({
       data: {
@@ -73,14 +73,14 @@ export const getBlogs = async (c: Context) => {
         title: true,
         content: true,
         published: true,
-        premiumBlog : true,
-        publishDate : true,
-        updateAt : true,
+        premiumBlog: true,
+        publishDate: true,
+        updateAt: true,
 
         author: {
           select: {
             name: true,
-            avatarURL : true
+            avatarURL: true,
           },
         },
       },
@@ -105,11 +105,22 @@ export const getBlog = async (c: Context) => {
       where: {
         id: params.id,
       },
-      select : {
-        title : true,
-        content : true,
-        published : true,
-      }
+      select: {
+        id: true,
+        title: true,
+        content: true,
+        published: true,
+        premiumBlog: true,
+        publishDate: true,
+        updateAt: true,
+
+        author: {
+          select: {
+            name: true,
+            avatarURL: true,
+          },
+        },
+      },
     });
 
     return c.json(post);

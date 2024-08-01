@@ -2,11 +2,13 @@ import { Context, Hono } from 'hono'
 import { verify } from 'hono/jwt';
 import { createBlog, getBlogs, signIn, signUp, updateBlog, getBlog} from './controllers';
 import { cors } from 'hono/cors';
+import { uploadContent } from './controllers/upload';
 
 interface  Enviroment  {
   Bindings : {
     DATABASE_URL : string,
-    JWT_SECRET : string
+    JWT_SECRET : string,
+    MY_BUCKET: R2Bucket
   }
   Variables : {
     userId: string
@@ -56,6 +58,7 @@ api_v1.get('/blog', getBlogs)
 api_v1.post('/blog', createBlog)
 api_v1.put('/blog', updateBlog)
 api_v1.get('/blog/:id', getBlog)
+api_v1.post('/upload', uploadContent)
 
 
 

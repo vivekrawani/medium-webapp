@@ -1,55 +1,57 @@
-import  { useState } from "react";
+import { useState } from "react";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { cn } from "@/lib/utils";
-import {
-  IconBrandGithub,
-  IconBrandGoogle,
-} from "@tabler/icons-react";
-
-import api from "../../../api/config"
-import {SignInInput} from "@vivek_kr/medium-common"
+import { IconBrandGithub, IconBrandGoogle } from "@tabler/icons-react";
+import { useNavigate } from "react-router-dom";
+import api from "../../../config/api";
+import { SignInInput } from "@vivek_kr/medium-common";
 
 const appName = "Medium";
 export function SigninForm() {
   const [userInfo, setUserInfo] = useState<SignInInput>({
-    email : "",
-    password : ""
+    email: "",
+    password: "",
   });
-  const handleSubmit =  async(e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const jwt =  (await api.post("/signin", userInfo)).data;
-    localStorage.setItem("medium-jwt-token", jwt)
-    
+    const { jwt } = (await api.post("/signin", userInfo)).data;
+    localStorage.setItem("medium-jwt-token", jwt);
+    navigate("/blogs")
   };
+  const navigate = useNavigate();
   return (
     <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
       <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">
         Welcome to {appName}
       </h2>
-     {
-      // JSON.stringify(userInfo)
-     }
+      <p className="mt-10">Sign into your account.</p>
 
       <form className="my-8" onSubmit={handleSubmit}>
-    
         <LabelInputContainer className="mb-4">
           <Label htmlFor="email">Email Address</Label>
-          <Input id="email" placeholder="jhondoe@gmail.com" type="email" value={userInfo.email}
-          onChange={(e)=> {
-            setUserInfo((info)=>({...info, email : e.target.value}))
-          }}
+          <Input
+            id="email"
+            placeholder="jhondoe@gmail.com"
+            type="email"
+            value={userInfo.email}
+            onChange={(e) => {
+              setUserInfo((info) => ({ ...info, email: e.target.value }));
+            }}
           />
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="password">Password</Label>
-          <Input id="password" placeholder="••••••••" type="password" 
-           onChange={(e)=> {
-            setUserInfo((info)=>({...info, password : e.target.value}))
-          }}
+          <Input
+            id="password"
+            placeholder="••••••••"
+            type="password"
+            onChange={(e) => {
+              setUserInfo((info) => ({ ...info, password: e.target.value }));
+            }}
           />
         </LabelInputContainer>
-       
+
         <button
           className="bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
           type="submit"
@@ -81,9 +83,19 @@ export function SigninForm() {
             </span>
             <BottomGradient />
           </button>
-          
         </div>
       </form>
+      <p className="font-thin">
+        Don't have an account? &nbsp;
+        <span
+          className="underline cursor-pointer text-blue-700"
+          onClick={(e) => {
+            navigate("/signup");
+          }}
+        >
+          Create a new account.
+        </span>
+      </p>
     </div>
   );
 }
@@ -110,4 +122,3 @@ const LabelInputContainer = ({
     </div>
   );
 };
-
