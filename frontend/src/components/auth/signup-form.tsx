@@ -3,7 +3,7 @@ import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { cn } from "@/lib/utils";
 import { IconBrandGithub, IconBrandGoogle } from "@tabler/icons-react";
-//@ts-ignore
+// @ts-ignore
 import api from "../../../config/api";
 import { SignUpInput } from "@vivek_kr/medium-common";
 import { useNavigate } from "react-router-dom";
@@ -20,17 +20,15 @@ export function SignupForm() {
     e.preventDefault();
     const jwt = (await api.post("/signup", userInfo)).data;
     localStorage.setItem("medium-jwt-token", jwt);
-    navigate("/blogs")
+    navigate("/blogs");
   };
   return (
     <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
       <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">
         Welcome to {appName}
       </h2>
-      <p className="text-neutral-600 text-sm max-w-sm mt-2 dark:text-neutral-300">
-        Sign Up at {appName}
-      </p>
-      {JSON.stringify(userInfo)}
+      
+     
       <form className="my-8" onSubmit={handleSubmit}>
         <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
           {/* <LabelInputContainer>
@@ -106,10 +104,10 @@ export function SignupForm() {
         </div>
       </form>
       <p className="font-thin">
-        Already an account? &nbsp;
+        Already have an account? &nbsp;
         <span
           className="underline cursor-pointer"
-          onClick={(e) => {
+          onClick={() => {
             navigate("/signin");
           }}
         >

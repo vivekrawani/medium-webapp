@@ -4,6 +4,7 @@ import { Label } from "../ui/label";
 import { cn } from "@/lib/utils";
 import { IconBrandGithub, IconBrandGoogle } from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
+// @ts-ignore
 import api from "../../../config/api";
 import { SignInInput } from "@vivek_kr/medium-common";
 
@@ -17,7 +18,7 @@ export function SigninForm() {
     e.preventDefault();
     const { jwt } = (await api.post("/signin", userInfo)).data;
     localStorage.setItem("medium-jwt-token", jwt);
-    navigate("/blogs")
+    navigate("/blogs");
   };
   const navigate = useNavigate();
   return (
@@ -25,7 +26,7 @@ export function SigninForm() {
       <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">
         Welcome to {appName}
       </h2>
-      <p className="mt-10">Sign into your account.</p>
+     
 
       <form className="my-8" onSubmit={handleSubmit}>
         <LabelInputContainer className="mb-4">
@@ -88,8 +89,8 @@ export function SigninForm() {
       <p className="font-thin">
         Don't have an account? &nbsp;
         <span
-          className="underline cursor-pointer text-blue-700"
-          onClick={(e) => {
+          className="underline cursor-pointer"
+          onClick={() => {
             navigate("/signup");
           }}
         >

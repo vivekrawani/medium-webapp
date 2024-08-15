@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 
 export default function SingleBlog() {
   const { id = "" } = useParams();
-  const { loading, blog } = FetchSingleBlog(id);
+  const { loading } = FetchSingleBlog(id);
   if (loading) {
     return <div>loading...</div>;
   }

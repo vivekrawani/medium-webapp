@@ -1,3 +1,4 @@
+// @ts-ignore
 import api from "../../config/api";
 import { useState, ChangeEvent } from "react";
 export default function Publish() {

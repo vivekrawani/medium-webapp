@@ -1,3 +1,4 @@
+// @ts-ignore
 import api from "../../config/api";
 import { useEffect, useState } from "react";
 type Blog = {
