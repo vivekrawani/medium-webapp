@@ -3,12 +3,8 @@ import { FaRegEdit } from "react-icons/fa";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
-import { MdDarkMode, MdOutlineLight } from "react-icons/md";
 import { MdOutlineDarkMode } from "react-icons/md";
-import { CiDark } from "react-icons/ci";
-import { CiLight } from "react-icons/ci";
 import { MdOutlineLightMode } from "react-icons/md";
-import { MdLightMode } from "react-icons/md";
 import useTheme from "@/hooks/useTheme";
 type BannerMessage = {
   left: string;

@@ -1,4 +1,8 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { FaComment } from "react-icons/fa";
+import { FaBookmark, FaHandsClapping } from "react-icons/fa6";
+import { SlOptions } from "react-icons/sl";
+import { FcRating } from "react-icons/fc";
 interface BlogCardProps {
   authorName: string;
   title: string;
@@ -14,28 +18,50 @@ export const BlogCard = ({
   content,
   publishedDate,
 }: BlogCardProps) => {
+  const navigate = useNavigate();
   return (
-    <Link to={`/blog/${id}`}>
-      <div className="p-4 border-b border-slate-200 pb-4 w-screen max-w-screen-md cursor-pointer">
-        <div className="flex">
-          <Avatar name={authorName} />
-          <div className="font-extralight pl-2 text-sm flex justify-center flex-col">
-            {authorName}
-          </div>
-          <div className="flex justify-center flex-col pl-2 ">
-            <Circle />
-          </div>
-          <div className="pl-2 font-thin text-slate-500 text-sm flex justify-center flex-col">
-            {publishedDate}
-          </div>
-        </div>
-        <div className="text-xl font-semibold pt-2">{title}</div>
-        <div className="text-md font-thin">{content.slice(0, 100) + "..."}</div>
-        <div className="text-slate-500 text-sm font-thin pt-4">
-          {`${Math.ceil(content.length / 100)} minute(s) read`}
+    <div
+      className="p-4 border-b border-slate-200 pb-4 w-screen max-w-screen-md cursor-pointer"
+      onClick={() => navigate(`/blog/${id}`)}
+    >
+      <div className="flex">
+        <Avatar name={authorName} />
+        <div className="font-extralight pl-2 text-sm flex justify-center flex-col hover:underline">
+          {authorName}
         </div>
       </div>
-    </Link>
+      <div className="text-2xl font-semibold pt-2">{title}</div>
+      <div className="text-md text-gray-500">
+        {content.slice(0, 100) + "..."}
+      </div>
+      <div className="flex flex-row  justify-between items-baseline gap-3">
+        <div className="flex flex-row items-center gap-3 text-lg text-slate-500">
+          <FcRating />
+          <div className="text-sm ">{publishedDate}</div>
+          <FaHandsClapping />
+          <FaComment />
+          <div className=" text-sm">
+            {`${Math.ceil(content.length / 100)} minute(s) read`}
+          </div>
+        </div>
+        <div className="flex flex-row items-baseline gap-3 text-lg text-slate-500">
+          <FaBookmark
+            onClick={(e) => {
+              e.stopPropagation();
+              console.log("Bookmark");
+              alert("Todo !!");
+            }}
+          />
+          <SlOptions
+            onClick={(e) => {
+              e.stopPropagation();
+              console.log("Bookmark");
+              alert("Todo !!");
+            }}
+          />
+        </div>
+      </div>
+    </div>
   );
 };
 
