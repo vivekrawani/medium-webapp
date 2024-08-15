@@ -3,6 +3,13 @@ import { FaRegEdit } from "react-icons/fa";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
+import { MdDarkMode, MdOutlineLight } from "react-icons/md";
+import { MdOutlineDarkMode } from "react-icons/md";
+import { CiDark } from "react-icons/ci";
+import { CiLight } from "react-icons/ci";
+import { MdOutlineLightMode } from "react-icons/md";
+import { MdLightMode } from "react-icons/md";
+import useTheme from "@/hooks/useTheme";
 type BannerMessage = {
   left: string;
   right: string;
@@ -15,7 +22,7 @@ export default function Navbar() {
   // };
   const message: BannerMessage | null = null;
   return (
-    <div>
+    <div className="bg-white dark:bg-black">
       <div
         className={`flex justify-between  pl-20 pr-10 ${user ? "py-2" : "py-5"} w-full border-b`}
       >
@@ -50,6 +57,7 @@ function RightDiv({ user }: { user: string | null }) {
     return (
       <div className="flex flex-row gap-5 place-items-center">
         <div className="flex flex-row gap-2 place-items-center text-md ">
+          <ToggleTheme />
           <FaRegEdit className="text-xl" /> Write
         </div>
 
@@ -64,6 +72,7 @@ function RightDiv({ user }: { user: string | null }) {
   }
   return (
     <div className="flex flex-row items-center gap-4">
+      <ToggleTheme />
       <Link to="/about"> Our story </Link>
       <Link to="/membership"> Membership</Link>
       <Link to="/signin">Sign in </Link>
@@ -82,6 +91,18 @@ function SearchBox() {
         placeholder="Search..."
         className="bg-gray-100 rounded-full px-4 py-1 outline-none"
       />
+    </div>
+  );
+}
+
+function ToggleTheme() {
+  const { theme, toggleTheme } = useTheme();
+  return (
+    <div
+      onClick={toggleTheme}
+      className="p-2 text-xl rounded cursor-pointer mr-10"
+    >
+      {theme === "dark" ? <MdOutlineLightMode /> : <MdOutlineDarkMode />}
     </div>
   );
 }
