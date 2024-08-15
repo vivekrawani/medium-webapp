@@ -4,7 +4,6 @@ import { Label } from "../ui/label";
 import { cn } from "@/lib/utils";
 import { IconBrandGithub, IconBrandGoogle } from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
-// @ts-ignore
 import api from "../../../config/api";
 import { SignInInput } from "@vivek_kr/medium-common";
 
@@ -16,8 +15,9 @@ export function SigninForm() {
   });
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const { jwt } = (await api.post("/signin", userInfo)).data;
+    const { jwt, user } = (await api.post("/signin", userInfo)).data;
     localStorage.setItem("medium-jwt-token", jwt);
+    localStorage.setItem("medium-user", JSON.stringify(user));
     navigate("/blogs");
   };
   const navigate = useNavigate();
@@ -26,7 +26,6 @@ export function SigninForm() {
       <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">
         Welcome to {appName}
       </h2>
-     
 
       <form className="my-8" onSubmit={handleSubmit}>
         <LabelInputContainer className="mb-4">

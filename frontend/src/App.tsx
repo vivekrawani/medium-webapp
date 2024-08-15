@@ -8,10 +8,7 @@ import Home from "@/pages/Home";
 import SingleBlog from "@/pages/SingleBlog";
 import Publish from "@/components/Publish";
 import ErrorPage from "@/components/ErrorPage";
-
 function App() {
-  const token = localStorage.getItem("medium-jwt-token");
-  console.log(token);
   return (
     <>
       <BrowserRouter>

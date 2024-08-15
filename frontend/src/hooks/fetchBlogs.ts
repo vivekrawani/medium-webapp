@@ -1,5 +1,5 @@
 // @ts-ignore
-import api from "../../config/api";
+import api, { apiWithToken } from "../../config/api";
 import { useEffect, useState } from "react";
 type Blog = {
   id: string;
@@ -10,25 +10,27 @@ type Blog = {
     name: string;
   };
 };
-export const FetchBlogs = () => {
+export const useBlogs = () => {
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
   const [blogs, setBlogs] = useState<Blog[]>([]);
 
   useEffect(() => {
-    api
-      .get("/blog", {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("medium-jwt-token")}`,
-        },
-      })
+    apiWithToken
+      .get("/blog")
       .then((response) => {
         console.log(response.data);
         setBlogs(response.data);
         setLoading(false);
+      })
+      .catch(() => {
+        // console.error(err);
+        setLoading(false);
+        setError(true);
       });
   }, []);
 
-  return { blogs, loading };
+  return { blogs, loading, error };
 };
 
 export const FetchSingleBlog = (id: string) => {

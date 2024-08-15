@@ -18,8 +18,9 @@ export function SignupForm() {
   const navigate = useNavigate();
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const jwt = (await api.post("/signup", userInfo)).data;
+    const { jwt, user } = (await api.post("/signup", userInfo)).data;
     localStorage.setItem("medium-jwt-token", jwt);
+    localStorage.setItem("medium-user", JSON.stringify(user));
     navigate("/blogs");
   };
   return (
@@ -27,8 +28,7 @@ export function SignupForm() {
       <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">
         Welcome to {appName}
       </h2>
-      
-     
+
       <form className="my-8" onSubmit={handleSubmit}>
         <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
           {/* <LabelInputContainer>

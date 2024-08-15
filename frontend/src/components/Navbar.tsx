@@ -3,22 +3,46 @@ import { FaRegEdit } from "react-icons/fa";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
-
+type BannerMessage = {
+  left: string;
+  right: string;
+};
 export default function Navbar() {
-  const user = null; // localStorage.getItem("medium-jwt-token");
+  const user = localStorage.getItem("medium-jwt-token");
+  // const message = {
+  //   left: "Last chance! 3 days left!",
+  //   right: "Get 20% off membership now",
+  // };
+  const message: BannerMessage | null = null;
   return (
-    <div className="flex justify-between  pl-20 pr-10 py-5 w-full border-b">
-      <div>
-        <div className="flex flex-row gap-4">
-          <div className="font-bold text-3xl">Medium </div>{" "}
-          {user && <SearchBox />}
+    <div>
+      <div
+        className={`flex justify-between  pl-20 pr-10 ${user ? "py-2" : "py-5"} w-full border-b`}
+      >
+        <div>
+          <div className="flex flex-row gap-4">
+            <div className="font-bold text-3xl">Medium </div>{" "}
+            {user && <SearchBox />}
+          </div>
+        </div>
+        <div>
+          <RightDiv user={user} />
         </div>
       </div>
-      <div>
-        <RightDiv user={user} />
-      </div>
+      <Banner message={message} />
     </div>
   );
+}
+function Banner({ message }: { message: BannerMessage | null }) {
+  if (message !== null)
+    return (
+      <div className="flex justify-center items-center gap-2 h-10 bg-pink-50 font-medium">
+        {message?.left}
+        <Link to="#" className="underline">
+          {message?.right}
+        </Link>
+      </div>
+    );
 }
 
 function RightDiv({ user }: { user: string | null }) {

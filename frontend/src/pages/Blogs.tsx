@@ -1,13 +1,13 @@
 import { BlogCard } from "@/components/BlogCard";
-import { FetchBlogs } from "@/hooks/fetchBlogs";
+import { useBlogs } from "@/hooks/fetchBlogs";
 
 export default function Blogs() {
-  const { blogs, loading } = FetchBlogs();
+  const { blogs, loading } = useBlogs();
   if (loading) {
     return <div>Loading ... </div>;
   }
   return (
-    <div >
+    <div>
       <BlogCard
         id={"1"}
         authorName={"vivek"}
