@@ -1,5 +1,5 @@
-// @ts-ignore
-import api from "../../config/api";
+import { apiWithToken } from "@/config/api";
+
 import { useState, ChangeEvent } from "react";
 export default function Publish() {
   const [blog, setBlog] = useState({
@@ -8,11 +8,7 @@ export default function Publish() {
   });
   const handleSubmit = async () => {
     console.log("Begin");
-    const response = await api.post("/blog", blog, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("medium-jwt-token")}`,
-      },
-    });
+    const response = await apiWithToken.post("/blog", blog);
     const data = response.data;
     console.log(data);
   };

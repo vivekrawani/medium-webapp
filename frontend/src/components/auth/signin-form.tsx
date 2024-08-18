@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
-import { cn } from "@/lib/utils";
+import { cn, setLocalStorage } from "@/lib/utils";
 import { IconBrandGithub, IconBrandGoogle } from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
-import api from "../../../config/api";
+import api from "../../config/api";
 import { SignInInput } from "@vivek_kr/medium-common";
+import { useDispatch } from "react-redux";
+import { updateUser } from "@/lib/features/user";
 
 const appName = "Medium";
 export function SigninForm() {
@@ -13,12 +15,15 @@ export function SigninForm() {
     email: "",
     password: "",
   });
+  const dispatch = useDispatch();
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { jwt, user } = (await api.post("/signin", userInfo)).data;
-    localStorage.setItem("medium-jwt-token", jwt);
-    localStorage.setItem("medium-user", JSON.stringify(user));
-    navigate("/blogs");
+    dispatch(updateUser(user));
+    setLocalStorage("medium-jwt-token", jwt);
+    setTimeout(() => {
+      navigate("/");
+    }, 2000);
   };
   const navigate = useNavigate();
   return (

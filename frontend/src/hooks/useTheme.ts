@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 const useTheme = () => {
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState("dark");
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
     if (savedTheme) {
@@ -24,7 +24,7 @@ const useTheme = () => {
     setTheme((prevTheme) => (prevTheme === "dark" ? "light" : "dark"));
   };
 
-  return {theme, toggleTheme};
+  return { theme, toggleTheme };
 };
 
 export default useTheme;

@@ -6,16 +6,16 @@ import { Link } from "react-router-dom";
 import { MdOutlineDarkMode } from "react-icons/md";
 import { MdOutlineLightMode } from "react-icons/md";
 import useTheme from "@/hooks/useTheme";
+import { useSelector } from "react-redux";
+import { RootState } from "@/lib/store";
+import type { User } from "@/lib/types";
 type BannerMessage = {
   left: string;
   right: string;
 };
 export default function Navbar() {
-  const user = localStorage.getItem("medium-jwt-token");
-  // const message = {
-  //   left: "Last chance! 3 days left!",
-  //   right: "Get 20% off membership now",
-  // };
+  const user = useSelector((state: RootState) => state.user.user);
+  console.log(user);
   const message: BannerMessage | null = null;
   return (
     <div className="bg-white dark:bg-black">
@@ -48,7 +48,7 @@ function Banner({ message }: { message: BannerMessage | null }) {
     );
 }
 
-function RightDiv({ user }: { user: string | null }) {
+function RightDiv({ user }: { user: User | null }) {
   if (user) {
     return (
       <div className="flex flex-row gap-5 place-items-center">

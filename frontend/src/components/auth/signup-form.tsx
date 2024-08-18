@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
-import { cn } from "@/lib/utils";
+import { cn, setLocalStorage } from "@/lib/utils";
 import { IconBrandGithub, IconBrandGoogle } from "@tabler/icons-react";
-// @ts-ignore
-import api from "../../../config/api";
+import api from "../../config/api";
 import { SignUpInput } from "@vivek_kr/medium-common";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { updateUser } from "@/lib/features/user";
 const appName = "Medium";
 
 export function SignupForm() {
@@ -15,13 +16,16 @@ export function SignupForm() {
     email: "",
     password: "",
   });
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { jwt, user } = (await api.post("/signup", userInfo)).data;
-    localStorage.setItem("medium-jwt-token", jwt);
-    localStorage.setItem("medium-user", JSON.stringify(user));
-    navigate("/blogs");
+    dispatch(updateUser(user));
+    setLocalStorage("medium-jwt-token", jwt);
+    setTimeout(() => {
+      navigate("/");
+    }, 2000);
   };
   return (
     <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">

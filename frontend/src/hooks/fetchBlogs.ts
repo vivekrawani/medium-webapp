@@ -1,5 +1,4 @@
-// @ts-ignore
-import api, { apiWithToken } from "../../config/api";
+import api, { apiWithToken } from "@/config/api";
 import { useEffect, useState } from "react";
 type Blog = {
   id: string;
