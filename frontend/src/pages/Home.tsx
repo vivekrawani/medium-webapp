@@ -13,7 +13,7 @@ export default function Home() {
     return <div>Error while loading ... </div>;
   }
   return (
-    <div className="mx-40 grid grid-cols-12 gap-5 h-screen">
+    <div className="mx-10 md:mx-20 lg:mx-40 md:grid md:grid-cols-12 md:gap-5 h-screen">
       <div className="col-span-8">
         <BlogCard
           id={"1"}
@@ -33,7 +33,7 @@ export default function Home() {
           />
         ))}
       </div>
-      <div className="border-l-[1px] border-gray-100"> </div>
+      <div className="hidden md:block border-l-[1px] border-gray-100"> </div>
       <div className="col-span-1"> Right </div>
     </div>
   );

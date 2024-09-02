@@ -54,14 +54,18 @@ function RightDiv({ user }: { user: User | null }) {
       <div className="flex flex-row gap-5 place-items-center">
         <div className="flex flex-row gap-2 place-items-center text-md ">
           <ToggleTheme />
-          <FaRegEdit className="text-xl" /> Write
+          <Link to="/publish">
+            <span className="flex flex-row gap-1">
+              <FaRegEdit className="text-xl" /> Write{" "}
+            </span>
+          </Link>
         </div>
 
         <div className="text-xl">
           <IoMdNotificationsOutline />
         </div>
         <div>
-          <Avatar name="vivek kumar" size="big" />
+          <Avatar name={user.name} size="big" />
         </div>
       </div>
     );

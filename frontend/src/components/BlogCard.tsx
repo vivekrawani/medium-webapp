@@ -21,7 +21,7 @@ export const BlogCard = ({
   const navigate = useNavigate();
   return (
     <div
-      className="p-4 border-b border-slate-200 pb-4 w-screen max-w-screen-md cursor-pointer"
+      className="p-1 lg:p-4 border-b border-slate-200 pb-4 cursor-pointer"
       onClick={() => navigate(`/blog/${id}`)}
     >
       <div className="flex">

@@ -6,19 +6,8 @@ export interface UserState {
   user: User | null;
 }
 
-const user = loadLocalStorage("medium-user");
-
 const initialState: UserState = {
-  user:
-    user === undefined
-      ? null
-      : {
-          name: user?.name,
-          avatarURL: user?.avatarURL,
-          id: user?.id,
-          username: user?.username,
-          email: user?.email,
-        },
+  user: loadLocalStorage("medium-string"),
 };
 
 export const userSlice = createSlice({
