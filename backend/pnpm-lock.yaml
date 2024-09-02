@@ -20,9 +20,6 @@ importers:
       hono:
         specifier: ^4.5.1
         version: 4.5.1
-      nodemailer:
-        specifier: ^6.9.14
-        version: 6.9.14
       prisma:
         specifier: ^5.17.0
         version: 5.17.0
@@ -30,12 +27,6 @@ importers:
       '@cloudflare/workers-types':
         specifier: ^4.20240529.0
         version: 4.20240722.0
-      '@types/node':
-        specifier: ^22.0.2
-        version: 22.0.2
-      '@types/nodemailer':
-        specifier: ^6.4.15
-        version: 6.4.15
       wrangler:
         specifier: ^3.57.2
         version: 3.65.1(@cloudflare/workers-types@4.20240722.0)
@@ -275,9 +266,6 @@ packages:
   '@types/node@22.0.2':
     resolution: {integrity: sha512-yPL6DyFwY5PiMVEwymNeqUTKsDczQBJ/5T7W/46RwLU/VH+AA8aT5TZkvBviLKLbbm0hlfftEkGrNzfRk/fofQ==}
 
-  '@types/nodemailer@6.4.15':
-    resolution: {integrity: sha512-0EBJxawVNjPkng1zm2vopRctuWVCxk34JcIlRuXSf54habUWdz1FB7wHDqOqvDa8Mtpt0Q3LTXQkAs2LNyK5jQ==}
-
   '@vivek_kr/medium-common@1.0.2':
     resolution: {integrity: sha512-PkZLCliAdpVol/rep6DyOle5nAfQT4+W/eslEDxdylTxHak9GvgYbqPNExmPLBNhx6XsAdCtSN3F99HwKA/ctw==}
 
@@ -438,10 +426,6 @@ packages:
   node-forge@1.3.1:
     resolution: {integrity: sha512-dPEtOeMvF9VMcYV/1Wb8CPoVAXtp6MKMlcbAt4ddqmGqUJ6fQZFXkNZNkNlfevtNkGtaSoXf/vNNNSvgrdXwtA==}
     engines: {node: '>= 6.13.0'}
-
-  nodemailer@6.9.14:
-    resolution: {integrity: sha512-Dobp/ebDKBvz91sbtRKhcznLThrKxKt97GI2FAlAyy+fk19j73Uz3sBXolVtmcXjaorivqsbbbjDY+Jkt4/bQA==}
-    engines: {node: '>=6.0.0'}
 
   normalize-path@3.0.0:
     resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==}
@@ -720,10 +704,6 @@ snapshots:
     dependencies:
       undici-types: 6.11.1
 
-  '@types/nodemailer@6.4.15':
-    dependencies:
-      '@types/node': 22.0.2
-
   '@vivek_kr/medium-common@1.0.2':
     dependencies:
       zod: 3.23.8
@@ -891,8 +871,6 @@ snapshots:
   node-fetch-native@1.6.4: {}
 
   node-forge@1.3.1: {}
-
-  nodemailer@6.9.14: {}
 
   normalize-path@3.0.0: {}
 

@@ -3,10 +3,37 @@ import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
 import { createBlogInput, updateBlogInput } from "@vivek_kr/medium-common";
 
+
+function parseBody(jsonInput : any[]){
+  const title = jsonInput.find(item => item.type === 'h1').body;
+  const content = jsonInput.find(item=> item.type === 'p').body;
+  if(title === undefined || content === undefined){
+    return {
+      success : false,
+      main : undefined,
+      title : undefined,
+      content : undefined
+    }
+  } else {
+    return {
+      success : true,
+      main : jsonInput.map(item=> `${item.type} ${item.body}`),
+      title,
+      content
+
+    }
+  }
+}
+
 export const createBlog = async (c: Context) => {
   const body = await c.req.json();
-  const { success } = createBlogInput.safeParse(body);
-  if (!success) {
+  // const { success } = createBlogInput.safeParse(body);
+  // if (!success) {
+  //   c.status(411);
+  //   return c.text("invalid details");
+  // }
+  const {success, main, title, content} = parseBody(body)
+   if (!success) {
     c.status(411);
     return c.text("invalid details");
   }
@@ -15,13 +42,13 @@ export const createBlog = async (c: Context) => {
   const prisma = new PrismaClient({
     datasourceUrl: DATABASE_URL,
   }).$extends(withAccelerate());
-  console.log(body);
   try {
     const post = await prisma.blog.create({
       data: {
-        title: body.title as string,
-        content: body.content as string,
+        title: title as string,
+        content: content as string,
         authorId: authorId as string,
+        body : main
       },
     });
     return c.json(post);

@@ -33,4 +33,5 @@ model Blog {
   author      User     @relation(fields: [authorId], references: [id])
   authorId    String
   premiumBlog Boolean  @default(false)
+  body        String[]
 }
