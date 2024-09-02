@@ -7,15 +7,14 @@ export interface UserState {
 }
 
 const initialState: UserState = {
-  user: loadLocalStorage("medium-string"),
+  user: loadLocalStorage("medium-user"),
 };
 
 export const userSlice = createSlice({
-  name: "counter",
+  name: "user",
   initialState,
   reducers: {
     updateUser: (state, action: PayloadAction<User>) => {
-      console.log("userslcie", action.payload);
       state.user = action.payload;
       setLocalStorage("medium-user", JSON.stringify(action.payload));
     },
