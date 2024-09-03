@@ -2,7 +2,7 @@ import { Avatar } from "./BlogCard";
 import { FaRegEdit } from "react-icons/fa";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { Button } from "./ui/button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { MdOutlineDarkMode } from "react-icons/md";
 import { MdOutlineLightMode } from "react-icons/md";
 import useTheme from "@/hooks/useTheme";
@@ -15,7 +15,7 @@ type BannerMessage = {
 };
 export default function Navbar() {
   const user = useSelector((state: RootState) => state.user.user);
-  console.log(user);
+  const navigate = useNavigate();
   const message: BannerMessage | null = null;
   return (
     <div className="bg-white dark:bg-black">
@@ -24,7 +24,7 @@ export default function Navbar() {
       >
         <div>
           <div className="flex flex-row gap-4">
-            <div className="font-bold text-3xl">Medium </div>{" "}
+            <div className="font-bold text-3xl cursor-pointer" onClick={()=> {navigate("/")}}>Medium </div>
             {user && <SearchBox />}
           </div>
         </div>

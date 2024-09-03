@@ -40,9 +40,9 @@ export const BlogCard = ({
           <div className="text-sm ">{publishedDate}</div>
           <FaHandsClapping />
           <FaComment />
-          <div className=" text-sm">
+          {/* <div className=" text-sm">
             {`${Math.ceil(content.length / 100)} minute(s) read`}
-          </div>
+          </div> */}
         </div>
         <div className="flex flex-row items-baseline gap-3 text-lg text-slate-500">
           <FaBookmark

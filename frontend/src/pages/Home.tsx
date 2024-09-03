@@ -2,6 +2,7 @@
 // import { useNavigate } from "react-router-dom";
 import { useBlogs } from "@/hooks/fetchBlogs";
 import { BlogCard } from "@/components/BlogCard";
+import TrendingSection from "@/components/TrendingSection";
 
 export default function Home() {
   // const navigate = useNavigate();
@@ -34,7 +35,10 @@ export default function Home() {
         ))}
       </div>
       <div className="hidden md:block border-l-[1px] border-gray-100"> </div>
-      <div className="col-span-1"> Right </div>
+      <div className="col-span-3">
+      <TrendingSection/>
+      </div>
+     
     </div>
   );
 }

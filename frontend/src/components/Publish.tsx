@@ -11,7 +11,7 @@ type Content = {
   type: Tag
   id: String,
   body?: String,
-  imgSrc?: String
+
 }
 export default function Publish() {
   const [elements, setElements] = useState<ReactNode[]>([]);
@@ -53,7 +53,7 @@ export default function Publish() {
       const currContent: Content = {
         id: (contents.length).toString(),
         type: "img",
-        imgSrc: url
+        body: url
       }
       setContents([...contents, currContent])
       setIsLoading(false);
@@ -68,7 +68,6 @@ export default function Publish() {
       id: currId,
       type: tag,
       body: "",
-      imgSrc: ""
     }
     const rootStyle = "outline-none bg-black/5 dark:bg-white/5 py-1 px-2 rounded-sm";
     switch (tag) {
@@ -113,17 +112,20 @@ export default function Publish() {
 
   }
   return (
-    <div className="mx-10 mt-10 lg:mx-20">
+    <div className="mx-10 mt-10 lg:mx-20 flex flex-col gap-5">
       <div className="flex  flex-col gap-3">
         {elements}
       </div>
       <ButtonWithMenu handleAdd={handleAdd} />
+      <div className="flex justify-end">
       <Button disabled={isLoading}
         onClick={handleSubmit}
       >
         {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
         Publish
       </Button>
+      </div>
+     
       <input type="file" accept="image/*" multiple={false} ref={inputRef}
         className="hidden"
 
