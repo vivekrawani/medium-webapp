@@ -16,6 +16,7 @@ interface Enviroment {
     DATABASE_URL: string;
     JWT_SECRET: string;
     MY_BUCKET: R2Bucket;
+    R2_BUCKET_URL : string;
   };
   Variables: {
     userId: string;
