@@ -140,7 +140,7 @@ export const getBlog = async (c: Context) => {
         premiumBlog: true,
         publishDate: true,
         updateAt: true,
-
+        body : true,
         author: {
           select: {
             name: true,
